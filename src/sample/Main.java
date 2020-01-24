@@ -8,6 +8,9 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -38,19 +41,39 @@ public class Main extends Application {
 
 
         //Size Buttons
-        Button small = new Button("SMALL");
-        Button medium = new Button("MEDIUM");
-        Button large = new Button("LARGE");
+        RadioButton small = new RadioButton("SMALL");
+        RadioButton medium = new RadioButton("MEDIUM");
+        RadioButton large = new RadioButton("LARGE");
+
+        //Size Group
+        final ToggleGroup sizes = new ToggleGroup();
+        small.setToggleGroup(sizes);
+        medium.setToggleGroup(sizes);
+        medium.setSelected(true);
+        large.setToggleGroup(sizes);
 
         //Flavor Buttons
-        Button vanilla = new Button("VANILLA");
-        Button chocolate = new Button("CHOCOLATE");
-        Button strawberry = new Button("STRAWBERRY");
+        RadioButton vanilla = new RadioButton("VANILLA");
+        RadioButton chocolate = new RadioButton("CHOCOLATE");
+        RadioButton strawberry = new RadioButton("STRAWBERRY");
+
+        //Flavor Group
+        final ToggleGroup flavors = new ToggleGroup();
+        vanilla.setToggleGroup(flavors);
+        chocolate.setToggleGroup(flavors);
+        chocolate.setSelected(true);
+        strawberry.setToggleGroup(flavors);
 
         //Toppings Buttons
-        Button whip = new Button("WHIP CREAM");
-        Button syrup = new Button("SYRUP");
-        Button sprinkles = new Button("SPRINKLES");
+        ToggleButton whip = new ToggleButton("WHIP CREAM");
+        ToggleButton syrup = new ToggleButton("SYRUP");
+        ToggleButton sprinkles = new ToggleButton("SPRINKLES");
+
+        //Toppings Group
+//        final ToggleGroup topping = new ToggleGroup();
+//        whip.setToggleGroup(topping);
+//        syrup.setToggleGroup(topping);
+//        sprinkles.setToggleGroup(topping);
 
         //GridPane
         GridPane options = new GridPane();
@@ -105,6 +128,3 @@ public class Main extends Application {
         launch(args);
     }
 }
-
-
-//utilize single select checkboxes instead of buttons
