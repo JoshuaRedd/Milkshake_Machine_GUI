@@ -31,14 +31,15 @@ public class Main extends Application {
     RadioButton small = new RadioButton("SMALL");
     RadioButton medium = new RadioButton("MEDIUM");
     RadioButton large = new RadioButton("LARGE");
-    protected Text totalOrder = new Text("Order:");
-    protected Text finalFlavor = new Text("");
-    protected Text finalSize = new Text("");
-    protected String finalToppings = "";
     //Toppings Buttons
     ToggleButton whip = new ToggleButton("WHIP CREAM");
     ToggleButton syrup = new ToggleButton("SYRUP");
     ToggleButton sprinkles = new ToggleButton("SPRINKLES");
+    //Final Text Elements
+    protected Text totalOrder = new Text("Order:");
+    protected Text finalFlavor = new Text("");
+    protected Text finalSize = new Text("");
+    protected String finalToppings = "";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
