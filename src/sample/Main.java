@@ -1,16 +1,15 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -20,7 +19,26 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
+
 public class Main extends Application {
+
+    //Flavor Buttons
+    RadioButton vanilla = new RadioButton("VANILLA");
+    RadioButton chocolate = new RadioButton("CHOCOLATE");
+    RadioButton strawberry = new RadioButton("STRAWBERRY");
+    //Size Buttons
+    RadioButton small = new RadioButton("SMALL");
+    RadioButton medium = new RadioButton("MEDIUM");
+    RadioButton large = new RadioButton("LARGE");
+    protected Text totalOrder = new Text("Order:");
+    protected Text finalFlavor = new Text("");
+    protected Text finalSize = new Text("");
+    protected String finalToppings = "";
+    //Toppings Buttons
+    ToggleButton whip = new ToggleButton("WHIP CREAM");
+    ToggleButton syrup = new ToggleButton("SYRUP");
+    ToggleButton sprinkles = new ToggleButton("SPRINKLES");
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -39,23 +57,12 @@ public class Main extends Application {
         order.setFill(Color.BLACK);
         order.setFont(Font.font("Verdana", 25));
 
-
-        //Size Buttons
-        RadioButton small = new RadioButton("SMALL");
-        RadioButton medium = new RadioButton("MEDIUM");
-        RadioButton large = new RadioButton("LARGE");
-
         //Size Group
         final ToggleGroup sizes = new ToggleGroup();
         small.setToggleGroup(sizes);
         medium.setToggleGroup(sizes);
         medium.setSelected(true);
         large.setToggleGroup(sizes);
-
-        //Flavor Buttons
-        RadioButton vanilla = new RadioButton("VANILLA");
-        RadioButton chocolate = new RadioButton("CHOCOLATE");
-        RadioButton strawberry = new RadioButton("STRAWBERRY");
 
         //Flavor Group
         final ToggleGroup flavors = new ToggleGroup();
@@ -64,16 +71,8 @@ public class Main extends Application {
         chocolate.setSelected(true);
         strawberry.setToggleGroup(flavors);
 
-        //Toppings Buttons
-        ToggleButton whip = new ToggleButton("WHIP CREAM");
-        ToggleButton syrup = new ToggleButton("SYRUP");
-        ToggleButton sprinkles = new ToggleButton("SPRINKLES");
-
-        //Toppings Group
-//        final ToggleGroup topping = new ToggleGroup();
-//        whip.setToggleGroup(topping);
-//        syrup.setToggleGroup(topping);
-//        sprinkles.setToggleGroup(topping);
+        //Order
+        totalOrder = new Text("Order:");
 
         //GridPane
         GridPane options = new GridPane();
@@ -102,9 +101,12 @@ public class Main extends Application {
         //pay button
         Button pay = new Button("PAY");
 
+        //add event listeners
+        add.setOnAction(e -> {UpdateSize();UpdateFlavor();UpdateToppings();DisplayOrder();});
+
         //order VBox
         VBox checkout = new VBox(10);
-        checkout.getChildren().addAll(order,add,pay);
+        checkout.getChildren().addAll(order,totalOrder,add,pay);
         checkout.setAlignment(Pos.TOP_CENTER);
         checkout.setPrefWidth(250);
 
@@ -123,6 +125,54 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+
+    //events
+    private void UpdateFlavor(){
+        if (vanilla.isSelected()){
+            finalFlavor = new Text("Vanilla");
+        }
+        if (chocolate.isSelected()){
+            finalFlavor = new Text("Chocolate");
+        }
+        if (strawberry.isSelected()){
+            finalFlavor = new Text("Strawberry");
+        }
+    }
+
+    private void UpdateSize(){
+        if (small.isSelected()){
+            finalSize = new Text("Small");
+        }
+        if (medium.isSelected()){
+            finalSize = new Text("Medium");
+        }
+        if (large.isSelected()){
+            finalSize = new Text("Large");
+        }
+    }
+
+    private void UpdateToppings(){
+        finalToppings = "";
+        if (sprinkles.isSelected()){
+            finalToppings += "Sprinkles ";
+        }
+        if (syrup.isSelected()){
+            finalToppings += "Syrup ";
+        }
+        if (whip.isSelected()){
+            finalToppings += "Whip ";
+        }
+    }
+
+    private void DisplayOrder(){
+        if(finalToppings==""){
+            System.out.println("One " + finalSize.getText() + " " + finalFlavor.getText() + " Milkshake");
+        }
+        if(finalToppings!="") {
+            System.out.println("One " + finalSize.getText() + " " + finalFlavor.getText() + " Milkshake with toppings: " +
+                    finalToppings);
+        }
+    }
 
     public static void main(String[] args) {
         launch(args);
